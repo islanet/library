@@ -24,7 +24,7 @@
 	<div class="form-group">
 		<label class="col-md-4 text-right">Título:</label>
 		<div class="col-md-8">
-			<input type="text" name="title" value="{{ $data->title }}" class="form-control input-lg" />
+			<input type="text" name="title" value="{{ old('title',$data->title) }}" class="form-control input-lg" />
 		</div>
 	</div>
 	<br />
@@ -42,7 +42,8 @@
                         <option value="{{ $key }}">{{ $value }}</option>
                     @endif
                 @endforeach
-            </select>		</div>
+            </select>
+        </div>
 	</div>
 	<br /><br /><br />
 	<div class="form-group text-center">

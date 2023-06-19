@@ -25,7 +25,7 @@
 	<div class="form-group">
 		<label class="col-md-4 text-right">Nombres:</label>
 		<div class="col-md-8">
-			<input type="text" name="name" class="form-control input-lg" />
+			<input type="text" name="name" value="{{ old('name') }}" class="form-control input-lg" />
 		</div>
 	</div>
 	<br />
@@ -34,7 +34,7 @@
 	<div class="form-group">
 		<label class="col-md-4 text-right">Apellidos:</label>
 		<div class="col-md-8">
-			<input type="text" name="last_name" class="form-control input-lg" />
+			<input type="text" name="last_name" value="{{ old('last_name') }}" class="form-control input-lg" />
 		</div>
 	</div>
 	<br />

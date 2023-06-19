@@ -25,7 +25,7 @@ class MemberController extends Controller
      */
     public function create()
     {
-        //
+        return view('member.create');
     }
 
     /**
@@ -36,7 +36,28 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'member_number'     =>  'required|integer|unique:members',
+            'name'              =>  'required|max:255',
+            'last_name'         =>  'required|max:255',
+            'phone'             =>  'required|numeric|min:10',
+            'loans_books_limit' =>  'required|numeric|max:2',
+            'active'            =>  'required|boolean',
+        ]);
+
+        $form_data = array(
+            'member_number'       =>   $request->member_number,
+            'name'                =>   $request->name,
+            'last_name'           =>   $request->last_name,
+            'phone'               =>   $request->phone,
+            'loans_books_limit'   =>   $request->loans_books_limit,
+            'active'              =>   $request->active,
+
+        );
+
+        Member::create($form_data);
+
+        return redirect('member')->with('success', 'Datos agregados correctamente.');
     }
 
     /**
@@ -47,7 +68,8 @@ class MemberController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Member::findOrFail($id);
+        return view('member.view', compact('data'));
     }
 
     /**
@@ -58,7 +80,8 @@ class MemberController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Member::findOrFail($id);
+        return view('member.edit', compact('data'));
     }
 
     /**
@@ -70,7 +93,27 @@ class MemberController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'              =>  'required|max:255',
+            'last_name'         =>  'required|max:255',
+            'phone'             =>  'required|numeric|min:10',
+            'loans_books_limit' =>  'required|numeric|max:2',
+            'active'            =>  'required|boolean',
+        ]);
+
+        $form_data = array(
+            'name'                =>   $request->name,
+            'last_name'           =>   $request->last_name,
+            'phone'               =>   $request->phone,
+            'loans_books_limit'   =>   $request->loans_books_limit,
+            'active'              =>   $request->active,
+
+        );
+
+        Member::whereId($id)->update($form_data);
+
+        return redirect('member')->with('success', 'Los datos fueron correctamente actualizados.');
+
     }
 
     /**
@@ -81,6 +124,15 @@ class MemberController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Member::findOrFail($id);
+        $message = 'El Socio tiene préstamos asociados, por favor eliminelos antes de eliminar el socio.';
+        $messageType = 'error';
+        if (count($data->loans)==0){
+            $data->delete();
+            $message = 'Los datos fueron correctamente eliminados.';
+            $messageType = 'success';
+        }
+
+        return redirect('member')->with($messageType, $message);
     }
 }

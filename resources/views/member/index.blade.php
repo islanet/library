@@ -13,6 +13,11 @@
 	<p>{{ $message }}</p>
 </div>
 @endif
+@if ($message = Session::get('error'))
+<div class="alert alert-danger">
+	<p>{{ $message }}</p>
+</div>
+@endif
 <table class="table table-bordered table-striped">
  <tr>
   <th width="10%">Número de Socio</th>
