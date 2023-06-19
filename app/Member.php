@@ -12,7 +12,11 @@ class Member extends Model
      * @var array
      */
     protected $fillable = [
-        'member_number', 'name', 'last_name', 'phone',
+        'member_number', 'name', 'last_name', 'phone','loans_books_limit','active',
     ];
-    //
+
+    public function loans()
+    {
+        return $this->hasMany(Loan::class);
+    }
 }

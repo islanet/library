@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 Route::resource('author','AuthorController');
 Route::resource('book','BookController');
+Route::resource('member','MemberController');
