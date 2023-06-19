@@ -14,6 +14,7 @@
 Route::get('/', function () {
     return view('dashboard');
 });
+
 Route::resource('author','AuthorController');
 Route::resource('book','BookController');
 Route::resource('member','MemberController');

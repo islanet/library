@@ -53,3 +53,4 @@
 </table>
 {!! $data->links() !!}
 @endsection
+@stack('scripts')
