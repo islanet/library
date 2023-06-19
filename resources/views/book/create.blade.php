@@ -25,7 +25,7 @@
 	<div class="form-group">
 		<label class="col-md-4 text-right">Título:</label>
 		<div class="col-md-8">
-			<input type="text" name="title" class="form-control input-lg" />
+			<input type="text" name="title" value="{{ old('title') }}" class="form-control input-lg" />
 		</div>
 	</div>
 	<br />
@@ -40,6 +40,24 @@
                     <option value="{{ $key }}">{{ $value }}</option>
                 @endforeach
             </select>
+		</div>
+	</div>
+	<br />
+	<br />
+	<br />
+    <div class="form-group">
+		<label class="col-md-4 text-right">Total ejemplares:</label>
+		<div class="col-md-8">
+			<input type="text" name="total" value="{{ old('total') }}" class="form-control input-lg" />
+		</div>
+	</div>
+	<br />
+	<br />
+	<br />
+    <div class="form-group">
+		<label class="col-md-4 text-right">Ejemplares disponibles:</label>
+		<div class="col-md-8">
+			<input type="text" name="available" value="{{ old('available') }}" class="form-control input-lg" />
 		</div>
 	</div>
 	<br />

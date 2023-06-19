@@ -20,14 +20,18 @@
 @endif
 <table class="table table-bordered table-striped">
  <tr>
-  <th width="35%">Título</th>
-  <th width="35%">Autor</th>
+  <th width="20%">Título</th>
+  <th width="20%">Autor</th>
+  <th width="15%">Total ejemplares</th>
+  <th width="15%">Ejemplares disponibles</th>
   <th width="30%">Opciones</th>
  </tr>
  @foreach($data as $row)
   <tr>
    <td>{{ $row->title }}</td>
    <td>{{ $row->author->name . ' '. $row->author->last_name }}</td>
+   <td>{{ $row->copy->total  }}</td>
+   <td>{{ $row->copy->available }}</td>
    <td>
         <form action="{{ route('book.destroy', $row->id) }}" method="post">
             <a href="{{ route('book.show', $row->id) }}" class="btn btn-primary">Ver</a>

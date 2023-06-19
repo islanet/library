@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Book;
 use App\Author;
+use App\CopyInventory;
 use Illuminate\Support\Facades\DB;
 class BookController extends Controller
 {
@@ -15,7 +16,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $data = Book::latest()->paginate(5);
+        $data = Book::with('author','copy')->latest()->paginate(5);
         return view('book.index', compact('data'))
                 ->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -40,8 +41,10 @@ class BookController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title'     =>  'required',
-            'author_id' =>   'required|not_in:0'
+            'title'     =>  'required|max:255',
+            'author_id' =>   'required|not_in:0',
+            'total' =>  'required|numeric|max:20',
+            'available' =>  'required|numeric|max:20|lte:total',
         ]);
 
         $form_data = array(
@@ -49,8 +52,15 @@ class BookController extends Controller
             'author_id'  =>   $request->author_id,
         );
 
-        Book::create($form_data);
-
+        $book = Book::create($form_data);
+        if ($book) {
+            $form_data_copy = array(
+                'total'      =>   $request->total,
+                'available'  =>   $request->available,
+                'book_id'    =>   $book->id
+            );
+            $copy = CopyInventory::create($form_data_copy);
+        }
         return redirect('book')->with('success', 'Datos agregados correctamente.');
     }
 
@@ -62,7 +72,7 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        $data = Book::findOrFail($id);
+        $data = Book::with('author','copy')->findOrFail($id);
         return view('book.view', compact('data'));
     }
 
@@ -89,16 +99,26 @@ class BookController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title'     =>  'required',
-            'author_id' =>   'required|not_in:0'
+            'title'     =>  'required|max:255',
+            'author_id' =>   'required|not_in:0',
+            'total' =>  'required|numeric|max:20',
+            'available' =>  'required|numeric|max:20|lte:total',
         ]);
 
         $form_data = array(
             'title'       =>   $request->title,
             'author_id'  =>   $request->author_id,
         );
-
         Book::whereId($id)->update($form_data);
+        $book = Book::findOrFail($id);
+        $copyId = $book->copy->id;
+
+        $form_data_copy = array(
+            'total'      =>   $request->total,
+            'available'  =>   $request->available,
+        );
+        $copy = CopyInventory::whereId($copyId)->update($form_data_copy);
+
         return redirect('book')->with('success', 'Los datos fueron correctamente actualizados');
     }
 
@@ -113,7 +133,7 @@ class BookController extends Controller
         $data = Book::findOrFail($id);
         $message = 'El libro tiene ejemplares asociados, por favor eliminelos antes de eliminar el libro.';
         $messageType = 'error';
-        if (!$data->copys){
+        if (!$data->copy){
             $data->delete();
             $message = 'Los datos fueron correctamente eliminados.';
             $messageType = 'success';

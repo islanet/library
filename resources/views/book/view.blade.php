@@ -13,5 +13,7 @@
 	<br />
 	<h3><b>Título</b> : {{ $data->title }} </h3>
 	<h3><b>Autor</b> : {{ $data->author->name . ' ' . $data->author->last_name }}</h3>
+    <h3><b>Total Ejemplares</b> : {{ $data->copy->total  }}</h3>
+    <h3><b>Ejemplares Disponibles</b> : {{ $data->copy->available }}</h3>
 </div>
 @endsection

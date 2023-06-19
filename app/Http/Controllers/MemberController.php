@@ -41,7 +41,7 @@ class MemberController extends Controller
             'name'              =>  'required|max:255',
             'last_name'         =>  'required|max:255',
             'phone'             =>  'required|numeric|min:10',
-            'loans_books_limit' =>  'required|numeric|max:2',
+            'loans_books_limit' =>  'required|numeric|max:20',
             'active'            =>  'required|boolean',
         ]);
 
@@ -97,7 +97,7 @@ class MemberController extends Controller
             'name'              =>  'required|max:255',
             'last_name'         =>  'required|max:255',
             'phone'             =>  'required|numeric|min:10',
-            'loans_books_limit' =>  'required|numeric|max:2',
+            'loans_books_limit' =>  'required|numeric|max:20',
             'active'            =>  'required|boolean',
         ]);
 

@@ -30,6 +30,7 @@
 	<br />
 	<br />
 	<br />
+
 	<div class="form-group">
 		<label class="col-md-4 text-right">Autor:</label>
 		<div class="col-md-8">
@@ -46,6 +47,24 @@
         </div>
 	</div>
 	<br /><br /><br />
+    <div class="form-group">
+		<label class="col-md-4 text-right">Total ejemplares:</label>
+		<div class="col-md-8">
+			<input type="text" name="total" value="{{ old('total', $data->copy->total) }}" class="form-control input-lg" />
+		</div>
+	</div>
+	<br />
+	<br />
+	<br />
+    <div class="form-group">
+		<label class="col-md-4 text-right">Ejemplares disponibles:</label>
+		<div class="col-md-8">
+			<input type="text" name="available" value="{{ old('available', $data->copy->available) }}" class="form-control input-lg" />
+		</div>
+	</div>
+	<br />
+	<br />
+	<br />
 	<div class="form-group text-center">
 		<input type="submit" name="edit" class="btn btn-primary input-lg" value="Editar" />
 	</div>

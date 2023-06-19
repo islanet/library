@@ -19,7 +19,7 @@ class Book extends Model
         return $this->belongsTo(Author::class);
     }
 
-    public function copys()
+    public function copy()
     {
         return $this->hasOne(CopyInventory::class);
     }
