@@ -17,7 +17,7 @@
           <li class="active"><a href="{{ route('member.index') }}">Socios <span class="sr-only">(current)</span></a></li>
           <li><a href="{{ route('author.index') }}">Autores</a></li>
           <li><a href="{{ route('book.index') }}">Libros</a></li>
-          <li><a href="#">Préstamos</a></li>
+          <li><a href="{{ route('loan.index') }}">Préstamos</a></li>
 
         </ul>
       </div><!-- /.navbar-collapse -->

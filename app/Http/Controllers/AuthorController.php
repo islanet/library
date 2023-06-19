@@ -39,8 +39,8 @@ class AuthorController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'    =>  'required',
-            'last_name'     =>  'required',
+            'name'          =>  'required|max:255',
+            'last_name'     =>  'required|max:255',
         ]);
 
         $form_data = array(
@@ -88,8 +88,8 @@ class AuthorController extends Controller
     {
 
         $request->validate([
-            'name'    =>  'required',
-            'last_name'     =>  'required'
+            'name'          =>  'required|max:255',
+            'last_name'     =>  'required|max:255'
         ]);
 
 
